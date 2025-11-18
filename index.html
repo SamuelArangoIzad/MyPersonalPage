@@ -1,197 +1,323 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Info</title>
-    <link rel="icon" type="image/png" href="./public/cuervo.png">
     <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title>Blog Design </title>
+    <link rel="icon" type="image/png" href="./public/cuervo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./index.css" />
+
+    <!-- Fuente -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap"
+    />
+
+    <!-- Iconos Devicon para lenguajes, DBs, Cloud, etc. -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
   </head>
   <body>
-    <div class="home-page">
-      <main class="greeting">
-        <section class="frame-parent">
-          <div class="frame-group">
-            <div class="hi-my-name-is-parent">
-              <h1 class="hi-my-name">Hi, my name is</h1>
-              <div class="contact-info">
-                <input class="contact-info-child" type="text" />
+    <div class="page">
+      <!-- NAV SUPERIOR FIJA -->
+      <header class="top-nav">
+        <div class="top-nav-left">
+          <span class="nav-logo">My Resume</span>
+        </div>
+        <nav class="top-nav-links">
+          <button class="nav-link is-active" data-view="view-welcome">
+            Inicio
+          </button>
+          <button class="nav-link" data-view="view-about">
+            Sobre mí
+          </button>
+          <button class="nav-link" data-view="view-skills">
+            Lenguajes
+          </button>
+        </nav>
+      </header>
 
-                <h1 class="samuel-arango">Samuel Arango</h1>
-              </div>
-              <div class="frame-child"></div>
+      <!-- CONTENIDO CENTRAL DINÁMICO -->
+      <main class="main">
+        <div class="content-wrapper">
+          <!-- VISTA: INICIO -->
+          <section
+            id="view-welcome"
+            class="view is-active"
+            aria-labelledby="welcome-title"
+          >
+            <div class="welcome-card">
+              <h1 id="welcome-title" class="welcome-title">Bienvenido 👋</h1>
+              <p class="welcome-subtitle">
+                Soy <strong>Samuel Arango</strong>, estudiante de
+                Ingeniería de Sistemas y Computación, enfocado en desarrollo
+                de software, bases de datos, analítica de datos y computación
+                en la nube.
+              </p>
+              <p class="welcome-text">
+                Explora esta página para conocer más sobre mí, mi enfoque
+                profesional y los lenguajes y tecnologías con los que trabajo.
+              </p>
             </div>
-            <div class="soft-skills">
-              <div class="i-rely-on-container">
-                <p class="i-rely-on">
-                  I rely on soft skills such as communication and also on user
-                  orientation and
+          </section>
+
+          <!-- VISTA: SOBRE MÍ (tu hero con el pollito) -->
+          <section
+            id="view-about"
+            class="view"
+            aria-labelledby="about-title"
+          >
+            <header class="hero">
+              <div class="hero-text">
+                <p class="hero-greeting">Hi, my name is</p>
+                <h1 id="about-title" class="hero-name">Samuel Arango</h1>
+                <p class="hero-role">
+                  Systems Engineering and Computer Science
                 </p>
-                <p class="i-rely-on">
-                  Functionality: I excel at understanding the needs of the end
+
+                <p class="hero-description">
+                  I rely on soft skills such as communication and user
+                  orientation. I excel at understanding the needs of the end
                   user and translating them into functional solutions.
                 </p>
-                <p class="i-rely-on">
+                <p class="hero-description">
                   My approach is based on creating intuitive and effective user
-                  experiences, ensuring that my
+                  experiences, ensuring that projects are not only
+                  technologically sound, but also highly functional and
+                  user-centric.
                 </p>
-                <p class="i-rely-on">
-                  Projects are not only technologically sound, but also highly
-                  functional and user-centric. Adaptability and Creative Problem
-                  Solving: Challenges are Opportunity
+                <p class="hero-description">
+                  I see challenges as opportunities for creativity,
+                  adaptability, and continuous improvement.
                 </p>
-                <p class="i-rely-on">&nbsp;</p>
-                <p class="location">LOCATION</p>
-                <p class="i-rely-on">Bucaramanga</p>
-              </div>
-            </div>
-            <div class="skills-header-wrapper">
-              <div class="skills-header">
-                <h1 class="skills">Skills</h1>
-                <div class="skills-icons">
-                  <div class="design-icons">
-                    <div class="adobe-icons">
-                      <img
-                        class="logosadobe-illustrator-icon"
-                        loading="lazy"
-                        alt=""
-                        src="./public/logosadobeillustrator.svg"
-                      />
-                    </div>
-                    <div class="adobe-icons1">
-                      <img
-                        class="skill-iconsphotoshop"
-                        loading="lazy"
-                        alt=""
-                        src="./public/skilliconsphotoshop.svg"
-                      />
-                    </div>
-                    <img
-                      class="logosadobe-xd-icon"
-                      loading="lazy"
-                      alt=""
-                      src="./public/logosadobexd.svg"
-                    />
 
-                    <img
-                      class="deviconjava-wordmark"
-                      loading="lazy"
-                      alt=""
-                      src="./public/deviconjavawordmark.svg"
-                    />
-                  </div>
-                  <div class="development-icons">
-                    <div class="figma-container-parent">
-                      <div class="figma-container">
-                        <img
-                          class="logosfigma-icon"
-                          loading="lazy"
-                          alt=""
-                          src="./public/logosfigma.svg"
-                        />
-                      </div>
-                      <div class="group-wrapper">
-                        <img
-                          class="group-icon"
-                          loading="lazy"
-                          alt=""
-                          src="./public/group.svg"
-                        />
-                      </div>
-                      <div class="code-icons">
-                        <img
-                          class="vscode-iconsfile-type-html"
-                          loading="lazy"
-                          alt=""
-                          src="./public/vscodeiconsfiletypehtml.svg"
-                        />
+                <div class="hero-location">
+                  <span class="hero-location-label">Location:</span>
+                  <span>Bucaramanga, Colombia</span>
+                </div>
 
-                        <div class="c-plus-plus-container">
-                          <img
-                            class="logosc-plusplus-icon"
-                            loading="lazy"
-                            alt=""
-                            src="./public/logoscplusplus.svg"
-                          />
-                        </div>
-                      </div>
-                      <div class="python-container">
-                        <img
-                          class="logospython-icon"
-                          loading="lazy"
-                          alt=""
-                          src="./public/logospython.svg"
-                        />
-                      </div>
-                      <div class="java-script-container">
-                        <img
-                          class="jsicon-1"
-                          loading="lazy"
-                          alt=""
-                          src="./public/jsicon-1@2x.png"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                <div class="hero-links">
+                  <a
+                    href="https://github.com/SamuelArangoIzad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/samuel-arango-diaz-a6a06a293/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="contact-info-container-wrapper">
-            <div class="contact-info-container">
-              <img
-                class="image-1-icon"
-                loading="lazy"
-                alt=""
-                src="./public/image-1@2x.png"
-              />
 
-              <div class="social-media">
-                <div class="github-container">
-                  <div class="mdigithub">
-                    <a href="https://github.com/SamuelArangoIzad">
-                    <img
-                      class="github-logo-icon"
-                      loading="lazy"
-                      alt=""
-                      src="./public/vector.svg"
-                    />
-                  </a>
+              <div class="hero-image-wrapper">
+                <img
+                  src="./public/image-1@2x.png"
+                  alt="Samuel studying with a cute chick on the laptop"
+                  class="hero-image"
+                />
+              </div>
+            </header>
+          </section>
 
-                    <a class="sajshdasjdas"></a>
-                  </div>
-                  <div class="linked-in-container">
-                    <a href="https://www.linkedin.com/in/samuel-arango-diaz-a6a06a293/">
-                    <img
-                      class="linkdicon-1"
-                      loading="lazy"
-                      alt=""
-                      src="./public/linkdicon-1@2x.png"
-                    />
-                  </a>
-                  </div>
+          <!-- VISTA: LENGUAJES / SKILLS -->
+          <section
+            id="view-skills"
+            class="view"
+            aria-labelledby="skills-title"
+          >
+            <section class="section">
+              <h2 id="skills-title" class="section-title">Skills</h2>
+
+              <div class="skills-grid">
+                <!-- Diseño / UI -->
+                <div class="skill-card">
+                  <img
+                    src="./public/logosadobeillustrator.svg"
+                    alt="Adobe Illustrator"
+                  />
+                  <span>Illustrator</span>
+                </div>
+                <div class="skill-card">
+                  <img
+                    src="./public/skilliconsphotoshop.svg"
+                    alt="Adobe Photoshop"
+                  />
+                  <span>Photoshop</span>
+                </div>
+                <div class="skill-card">
+                  <img
+                    src="./public/logosadobexd.svg"
+                    alt="Adobe XD"
+                  />
+                  <span>Adobe XD</span>
+                </div>
+                <div class="skill-card">
+                  <img src="./public/logosfigma.svg" alt="Figma" />
+                  <span>Figma</span>
+                </div>
+
+                <!-- Lenguajes existentes -->
+                <div class="skill-card">
+                  <img src="./public/deviconjavawordmark.svg" alt="Java" />
+                  <span>Java</span>
+                </div>
+                <div class="skill-card">
+                  <img
+                    src="./public/vscodeiconsfiletypehtml.svg"
+                    alt="HTML5"
+                  />
+                  <span>HTML5</span>
+                </div>
+                <div class="skill-card">
+                  <img src="./public/logoscplusplus.svg" alt="C++" />
+                  <span>C++</span>
+                </div>
+                <div class="skill-card">
+                  <img src="./public/logospython.svg" alt="Python" />
+                  <span>Python</span>
+                </div>
+                <div class="skill-card">
+                  <img src="./public/jsicon-1@2x.png" alt="JavaScript" />
+                  <span>JavaScript</span>
+                </div>
+
+                <!-- Nuevos lenguajes -->
+                <div class="skill-card">
+                  <i class="devicon-typescript-plain colored"></i>
+                  <span>TypeScript</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-go-original-wordmark colored"></i>
+                  <span>Go</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-ruby-plain-wordmark colored"></i>
+                  <span>Ruby</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-csharp-plain colored"></i>
+                  <span>C#</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-rust-plain colored"></i>
+                  <span>Rust</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-kotlin-plain colored"></i>
+                  <span>Kotlin</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-swift-plain colored"></i>
+                  <span>Swift</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-git-plain colored"></i>
+                  <span>Git</span>
+                </div>
+
+                <!-- Sistemas operativos -->
+                <div class="skill-card">
+                  <i class="devicon-linux-plain colored"></i>
+                  <span>Linux</span>
+                </div>
+
+                <!-- Bases de datos -->
+                <div class="skill-card">
+                  <i class="devicon-postgresql-plain colored"></i>
+                  <span>PostgreSQL</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-mysql-original colored"></i>
+                  <span>MySQL</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-mongodb-plain colored"></i>
+                  <span>MongoDB</span>
+                </div>
+
+                <!-- Cloud -->
+                <div class="skill-card">
+                  <i
+                    class="devicon-amazonwebservices-plain colored"
+                  ></i>
+                  <span>AWS</span>
+                </div>
+                <div class="skill-card">
+                  <i class="devicon-googlecloud-plain colored"></i>
+                  <span>Google Cloud</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          </section>
+        </div>
       </main>
-      <div class="skill-iconscss"></div>
+
+      <!-- FOOTER FIJO -->
       <footer class="footer">
-        <div class="footer-child"></div>
-        <div class="systems-engineering-and">
-          Systems Engineering and Computer Science
-        </div>
-        <div class="samuelarangodiaz04gmailcom">
-          <a href="mailto:samuelarangodiaz04@gmail.com">samuelarangodiaz04@gmail.com</a>
-        </div>
+        <span>Systems Engineering and Computer Science</span>
+        <span class="footer-separator">•</span>
+        <a href="mailto:samuelarangodiaz04@gmail.com">
+          samuelarangodiaz04@gmail.com
+        </a>
       </footer>
     </div>
+
+    <!-- JS para cambiar vistas con animación -->
+
+    <script>
+  const navLinks = document.querySelectorAll(".nav-link[data-view]");
+  const views = document.querySelectorAll(".view");
+
+  let currentView = document.querySelector(".view.is-active");
+
+  function showView(targetId) {
+    const nextView = document.getElementById(targetId);
+    if (!nextView || nextView === currentView) return;
+
+    // Quitar estados de entrada anteriores
+    views.forEach((v) => v.classList.remove("is-entering"));
+
+    // Animar salida de la vista actual
+    if (currentView) {
+      const leavingView = currentView; // <--- guardar referencia
+      leavingView.classList.add("is-leaving");
+
+      leavingView.addEventListener(
+        "animationend",
+        () => {
+          leavingView.classList.remove("is-leaving", "is-active");
+        },
+        { once: true }
+      );
+    }
+
+    // Mostrar y animar entrada de la nueva vista
+    nextView.classList.add("is-active", "is-entering");
+    currentView = nextView;
+  }
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetView = link.dataset.view;
+      showView(targetView);
+
+      navLinks.forEach((l) => l.classList.remove("is-active"));
+      link.classList.add("is-active");
+    });
+  });
+</script>
+
+
+
   </body>
 </html>
