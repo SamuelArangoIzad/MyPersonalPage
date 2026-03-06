@@ -1,323 +1,764 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Blog Design </title>
-    <link rel="icon" type="image/png" href="./public/cuervo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Samuel Arango | Ingeniero de Sistemas</title>
+    <style>
+      :root {
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --surface-2: #eef2ff;
+        --text: #111827;
+        --text-soft: #6b7280;
+        --border: #d1d5db;
+        --primary: #1d4ed8;
+        --primary-dark: #1e3a8a;
+        --primary-soft: #dbeafe;
+        --gray-strong: #374151;
+        --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.08);
+        --shadow-strong: 0 24px 60px rgba(15, 23, 42, 0.14);
+        --radius-xl: 28px;
+        --radius-lg: 22px;
+        --radius-md: 16px;
+        --max: 1200px;
+      }
 
-    <link rel="stylesheet" href="./global.css" />
-    <link rel="stylesheet" href="./index.css" />
+      * {
+        box-sizing: border-box;
+      }
 
-    <!-- Fuente -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap"
-    />
+      html {
+        scroll-behavior: smooth;
+      }
 
-    <!-- Iconos Devicon para lenguajes, DBs, Cloud, etc. -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
-    />
+      body {
+        margin: 0;
+        font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top right, rgba(29, 78, 216, 0.08), transparent 30%),
+          linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .shell {
+        width: min(calc(100% - 2rem), var(--max));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: rgba(255, 255, 255, 0.88);
+        border-bottom: 1px solid rgba(209, 213, 219, 0.8);
+      }
+
+      .nav {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--primary-dark);
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+        box-shadow: 0 12px 26px rgba(29, 78, 216, 0.24);
+        font-size: 0.92rem;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+      }
+
+      .nav-links a {
+        padding: 0.7rem 1rem;
+        border-radius: 999px;
+        color: var(--text-soft);
+        font-size: 0.92rem;
+        font-weight: 600;
+        transition: 0.25s ease;
+      }
+
+      .nav-links a:hover {
+        background: var(--surface-2);
+        color: var(--primary-dark);
+      }
+
+      .hero {
+        min-height: calc(100vh - 76px);
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 2rem;
+        align-items: center;
+        padding: 3rem 0 4rem;
+      }
+
+      .hero-copy {
+        max-width: 680px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-soft);
+        color: var(--primary-dark);
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+
+      h1 {
+        margin: 1.2rem 0 0.8rem;
+        font-size: clamp(3rem, 7vw, 5.4rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+
+      .hero h1 span {
+        color: var(--primary);
+      }
+
+      .hero-text {
+        margin: 0;
+        max-width: 640px;
+        color: var(--text-soft);
+        font-size: 1.02rem;
+        line-height: 1.85;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 1.8rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 50px;
+        padding: 0.85rem 1.3rem;
+        border-radius: 999px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        transition: 0.25s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: #fff;
+        box-shadow: 0 18px 32px rgba(29, 78, 216, 0.22);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--text);
+        border-color: var(--border);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .btn-secondary:hover {
+        background: var(--surface-2);
+        color: var(--primary-dark);
+      }
+
+      .hero-card {
+        position: relative;
+        background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(239,246,255,0.96));
+        border: 1px solid rgba(209, 213, 219, 0.9);
+        border-radius: var(--radius-xl);
+        padding: 1rem;
+        box-shadow: var(--shadow-strong);
+        overflow: visible;
+      }
+
+      .hero-photo {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 22px;
+        border: 1px solid rgba(209, 213, 219, 0.9);
+      }
+
+      .hero-badge {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        padding: 1rem 1.1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid rgba(255,255,255,0.7);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+      }
+
+      .hero-badge strong {
+        display: block;
+        color: var(--primary-dark);
+        margin-bottom: 0.2rem;
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .section-kicker {
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      .section-title {
+        margin: 0.35rem 0 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .section-text {
+        max-width: 680px;
+        color: var(--text-soft);
+        line-height: 1.8;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+
+      .panel {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(209, 213, 219, 0.9);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .panel h3 {
+        margin-top: 0;
+        margin-bottom: 0.8rem;
+        font-size: 1.05rem;
+      }
+
+      .panel p,
+      .panel li {
+        color: var(--text-soft);
+        line-height: 1.8;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .stack-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 150px;
+        border-radius: 20px;
+        padding: 1.2rem 1rem;
+        background: #fff;
+        border: 1px solid rgba(209, 213, 219, 0.85);
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        text-align: center;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+
+      .stack-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .stack-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 22px 44px rgba(15, 23, 42, 0.12);
+        border-color: rgba(29, 78, 216, 0.28);
+      }
+
+      .stack-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .stack-card img {
+        width: 54px;
+        height: 54px;
+        object-fit: contain;
+      }
+
+      .stack-card h4 {
+        margin: 0;
+        font-size: 0.98rem;
+      }
+
+      .stack-card p {
+        margin: 0;
+        color: var(--text-soft);
+        font-size: 0.84rem;
+        line-height: 1.5;
+      }
+
+      .highlight-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+
+      .highlight {
+        background: linear-gradient(180deg, #ffffff, #f8fbff);
+        border: 1px solid rgba(209, 213, 219, 0.9);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .highlight strong {
+        display: block;
+        color: var(--primary-dark);
+        font-size: 1.8rem;
+        margin-bottom: 0.35rem;
+      }
+
+      .socials {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+
+      .social-card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(209, 213, 219, 0.9);
+        border-radius: 20px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow-soft);
+        transition: 0.25s ease;
+      }
+
+      .social-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(29, 78, 216, 0.34);
+      }
+
+      .social-card small {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--primary);
+        font-weight: 800;
+        margin-bottom: 0.6rem;
+      }
+
+      footer {
+        padding: 2rem 0 3rem;
+        color: var(--text-soft);
+      }
+
+      .footer-line {
+        border-top: 1px solid rgba(209, 213, 219, 0.9);
+        padding-top: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .about-grid,
+        .highlight-grid,
+        .socials {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 2rem;
+        }
+
+        .hero-card {
+          max-width: 460px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          padding: 0.7rem 0;
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          width: 100%;
+        }
+
+        .nav-links a {
+          padding-inline: 0.8rem;
+        }
+
+        h1 {
+          font-size: clamp(2.4rem, 13vw, 3.6rem);
+        }
+
+        .section {
+          padding: 3.8rem 0;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="page">
-      <!-- NAV SUPERIOR FIJA -->
-      <header class="top-nav">
-        <div class="top-nav-left">
-          <span class="nav-logo">My Resume</span>
-        </div>
-        <nav class="top-nav-links">
-          <button class="nav-link is-active" data-view="view-welcome">
-            Inicio
-          </button>
-          <button class="nav-link" data-view="view-about">
-            Sobre mí
-          </button>
-          <button class="nav-link" data-view="view-skills">
-            Lenguajes
-          </button>
-        </nav>
-      </header>
-
-      <!-- CONTENIDO CENTRAL DINÁMICO -->
-      <main class="main">
-        <div class="content-wrapper">
-          <!-- VISTA: INICIO -->
-          <section
-            id="view-welcome"
-            class="view is-active"
-            aria-labelledby="welcome-title"
-          >
-            <div class="welcome-card">
-              <h1 id="welcome-title" class="welcome-title">Bienvenido 👋</h1>
-              <p class="welcome-subtitle">
-                Soy <strong>Samuel Arango</strong>, estudiante de
-                Ingeniería de Sistemas y Computación, enfocado en desarrollo
-                de software, bases de datos, analítica de datos y computación
-                en la nube.
-              </p>
-              <p class="welcome-text">
-                Explora esta página para conocer más sobre mí, mi enfoque
-                profesional y los lenguajes y tecnologías con los que trabajo.
-              </p>
-            </div>
-          </section>
-
-          <!-- VISTA: SOBRE MÍ (tu hero con el pollito) -->
-          <section
-            id="view-about"
-            class="view"
-            aria-labelledby="about-title"
-          >
-            <header class="hero">
-              <div class="hero-text">
-                <p class="hero-greeting">Hi, my name is</p>
-                <h1 id="about-title" class="hero-name">Samuel Arango</h1>
-                <p class="hero-role">
-                  Systems Engineering and Computer Science
-                </p>
-
-                <p class="hero-description">
-                  I rely on soft skills such as communication and user
-                  orientation. I excel at understanding the needs of the end
-                  user and translating them into functional solutions.
-                </p>
-                <p class="hero-description">
-                  My approach is based on creating intuitive and effective user
-                  experiences, ensuring that projects are not only
-                  technologically sound, but also highly functional and
-                  user-centric.
-                </p>
-                <p class="hero-description">
-                  I see challenges as opportunities for creativity,
-                  adaptability, and continuous improvement.
-                </p>
-
-                <div class="hero-location">
-                  <span class="hero-location-label">Location:</span>
-                  <span>Bucaramanga, Colombia</span>
-                </div>
-
-                <div class="hero-links">
-                  <a
-                    href="https://github.com/SamuelArangoIzad"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/samuel-arango-diaz-a6a06a293/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
-
-              <div class="hero-image-wrapper">
-                <img
-                  src="./public/image-1@2x.png"
-                  alt="Samuel studying with a cute chick on the laptop"
-                  class="hero-image"
-                />
-              </div>
-            </header>
-          </section>
-
-          <!-- VISTA: LENGUAJES / SKILLS -->
-          <section
-            id="view-skills"
-            class="view"
-            aria-labelledby="skills-title"
-          >
-            <section class="section">
-              <h2 id="skills-title" class="section-title">Skills</h2>
-
-              <div class="skills-grid">
-                <!-- Diseño / UI -->
-                <div class="skill-card">
-                  <img
-                    src="./public/logosadobeillustrator.svg"
-                    alt="Adobe Illustrator"
-                  />
-                  <span>Illustrator</span>
-                </div>
-                <div class="skill-card">
-                  <img
-                    src="./public/skilliconsphotoshop.svg"
-                    alt="Adobe Photoshop"
-                  />
-                  <span>Photoshop</span>
-                </div>
-                <div class="skill-card">
-                  <img
-                    src="./public/logosadobexd.svg"
-                    alt="Adobe XD"
-                  />
-                  <span>Adobe XD</span>
-                </div>
-                <div class="skill-card">
-                  <img src="./public/logosfigma.svg" alt="Figma" />
-                  <span>Figma</span>
-                </div>
-
-                <!-- Lenguajes existentes -->
-                <div class="skill-card">
-                  <img src="./public/deviconjavawordmark.svg" alt="Java" />
-                  <span>Java</span>
-                </div>
-                <div class="skill-card">
-                  <img
-                    src="./public/vscodeiconsfiletypehtml.svg"
-                    alt="HTML5"
-                  />
-                  <span>HTML5</span>
-                </div>
-                <div class="skill-card">
-                  <img src="./public/logoscplusplus.svg" alt="C++" />
-                  <span>C++</span>
-                </div>
-                <div class="skill-card">
-                  <img src="./public/logospython.svg" alt="Python" />
-                  <span>Python</span>
-                </div>
-                <div class="skill-card">
-                  <img src="./public/jsicon-1@2x.png" alt="JavaScript" />
-                  <span>JavaScript</span>
-                </div>
-
-                <!-- Nuevos lenguajes -->
-                <div class="skill-card">
-                  <i class="devicon-typescript-plain colored"></i>
-                  <span>TypeScript</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-go-original-wordmark colored"></i>
-                  <span>Go</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-ruby-plain-wordmark colored"></i>
-                  <span>Ruby</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-csharp-plain colored"></i>
-                  <span>C#</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-rust-plain colored"></i>
-                  <span>Rust</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-kotlin-plain colored"></i>
-                  <span>Kotlin</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-swift-plain colored"></i>
-                  <span>Swift</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-git-plain colored"></i>
-                  <span>Git</span>
-                </div>
-
-                <!-- Sistemas operativos -->
-                <div class="skill-card">
-                  <i class="devicon-linux-plain colored"></i>
-                  <span>Linux</span>
-                </div>
-
-                <!-- Bases de datos -->
-                <div class="skill-card">
-                  <i class="devicon-postgresql-plain colored"></i>
-                  <span>PostgreSQL</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-mysql-original colored"></i>
-                  <span>MySQL</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-mongodb-plain colored"></i>
-                  <span>MongoDB</span>
-                </div>
-
-                <!-- Cloud -->
-                <div class="skill-card">
-                  <i
-                    class="devicon-amazonwebservices-plain colored"
-                  ></i>
-                  <span>AWS</span>
-                </div>
-                <div class="skill-card">
-                  <i class="devicon-googlecloud-plain colored"></i>
-                  <span>Google Cloud</span>
-                </div>
-              </div>
-            </section>
-          </section>
-        </div>
-      </main>
-
-      <!-- FOOTER FIJO -->
-      <footer class="footer">
-        <span>Systems Engineering and Computer Science</span>
-        <span class="footer-separator">•</span>
-        <a href="mailto:samuelarangodiaz04@gmail.com">
-          samuelarangodiaz04@gmail.com
+    <header class="topbar">
+      <div class="shell nav">
+        <a class="brand" href="#inicio">
+          <img src="/public/cuervo.png" alt="Logo Samuel Arango" style="width:42px;height:42px;object-fit:contain;border-radius:10px;" />
+          <span>Samuel Arango</span>
         </a>
-      </footer>
-    </div>
+        <nav class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#perfil">Perfil</a>
+          <a href="#stack">Stack</a>
+          <a href="#contacto">Redes</a>
+        </nav>
+      </div>
+    </header>
 
-    <!-- JS para cambiar vistas con animación -->
+    <main>
+      <section class="shell hero" id="inicio">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Ingeniería de Sistemas · Software · Datos · Infraestructura
+          </div>
+          <h1>
+            Construyo experiencias <span>tecnológicas</span> con enfoque en
+            software, analítica y arquitectura.
+          </h1>
+          <p class="hero-text">
+            Soy Samuel Arango, estudiante de Ingeniería de Sistemas e informática.
+            Me interesa el desarrollo de software, la analítica de datos, las bases de datos,
+            el machine learning, las redes de datos, la seguridad y la innovación.
+            Este portafolio está diseñado para presentar mi perfil de forma profesional,
+            clara y con una identidad visual sobria en gris, azul rey y blanco.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#stack">Ver stack tecnológico</a>
+            <a class="btn btn-secondary" href="#contacto">Ir a mis redes</a>
+          </div>
+        </div>
 
-    <script>
-  const navLinks = document.querySelectorAll(".nav-link[data-view]");
-  const views = document.querySelectorAll(".view");
+        <div class="hero-card">
+          <img class="hero-photo" src="/public/image-1@2x.png" alt="Foto de Samuel Arango" />
+          <div class="hero-badge">
+            <strong>Perfil profesional</strong>
+            Desarrollo de software · Datos · Infraestructura · ML
+          </div>
+        </div>
+      </section>
 
-  let currentView = document.querySelector(".view.is-active");
+      <section class="section" id="perfil">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sobre mí</div>
+              <h2 class="section-title">Perfil orientado a soluciones, aprendizaje y construcción.</h2>
+            </div>
+          </div>
+          <p class="section-text">
+            Mi enfoque combina pensamiento ingenieril, visión de producto y gusto por la tecnología aplicada.
+            Disfruto trabajar en proyectos donde se integran backend, bases de datos, interfaces, despliegue,
+            visualización de información y automatización. Busco seguir creciendo en áreas como machine learning,
+            computación en la nube, seguridad y arquitectura de software.
+          </p>
 
-  function showView(targetId) {
-    const nextView = document.getElementById(targetId);
-    if (!nextView || nextView === currentView) return;
+          <div class="about-grid" style="margin-top: 1.5rem;">
+            <article class="panel">
+              <h3>Lo que me define</h3>
+              <ul>
+                <li>Desarrollo de software con enfoque estructurado.</li>
+                <li>Interés por machine learning y analítica de datos.</li>
+                <li>Base en infraestructura, redes, seguridad y sistemas.</li>
+                <li>Gusto por crear soluciones útiles, escalables y limpias.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Áreas de proyección</h3>
+              <ul>
+                <li>Backend y arquitectura de servicios.</li>
+                <li>Machine learning aplicado y ciencia de datos.</li>
+                <li>Automatización, cloud e infraestructura.</li>
+                <li>Diseño técnico de productos digitales.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
 
-    // Quitar estados de entrada anteriores
-    views.forEach((v) => v.classList.remove("is-entering"));
+      <section class="section" id="stack">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Stack tecnológico</div>
+              <h2 class="section-title">Lenguajes, herramientas y tecnologías que uso.</h2>
+            </div>
+          </div>
 
-    // Animar salida de la vista actual
-    if (currentView) {
-      const leavingView = currentView; // <--- guardar referencia
-      leavingView.classList.add("is-leaving");
+          <div class="highlight-grid" style="margin-bottom: 1.5rem;">
+            <article class="highlight">
+              <strong>Software</strong>
+              <span>Desarrollo, estructura, lógica y construcción de soluciones funcionales.</span>
+            </article>
+            <article class="highlight">
+              <strong>Datos</strong>
+              <span>Modelado, analítica, manejo de información y pensamiento orientado a métricas.</span>
+            </article>
+            <article class="highlight">
+              <strong>Infraestructura</strong>
+              <span>Interés por entornos, despliegue, redes, virtualización y arquitectura técnica.</span>
+            </article>
+          </div>
 
-      leavingView.addEventListener(
-        "animationend",
-        () => {
-          leavingView.classList.remove("is-leaving", "is-active");
-        },
-        { once: true }
-      );
-    }
+          <div class="stack-grid">
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" />
+              <h4>HTML</h4>
+              <p>Estructura semántica y construcción de interfaces web.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+              <h4>JavaScript</h4>
+              <p>Lógica de interacción, componentes y dinamismo del frontend.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+              <h4>Python</h4>
+              <p>Automatización, análisis de datos y base para ML.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" />
+              <h4>Java</h4>
+              <p>Programación orientada a objetos y fundamentos sólidos.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" />
+              <h4>C++</h4>
+              <p>Algoritmia, rendimiento y lógica de bajo nivel.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" />
+              <h4>TypeScript</h4>
+              <p>JavaScript tipado para aplicaciones más robustas.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Go" />
+              <h4>Go</h4>
+              <p>Servicios eficientes, concurrencia y backend moderno.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby" />
+              <h4>Ruby</h4>
+              <p>Desarrollo ágil con sintaxis clara y productiva.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" />
+              <h4>C#</h4>
+              <p>Aplicaciones orientadas a objetos y ecosistema .NET.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg" alt="Rust" />
+              <h4>Rust</h4>
+              <p>Rendimiento y seguridad de memoria para sistemas confiables.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" />
+              <h4>Kotlin</h4>
+              <p>Desarrollo moderno para Android y backend JVM.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="Swift" />
+              <h4>Swift</h4>
+              <p>Construcción nativa de apps dentro del ecosistema Apple.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+              <h4>Git</h4>
+              <p>Control de versiones, ramas y trabajo colaborativo.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" />
+              <h4>Linux</h4>
+              <p>Administración de sistemas, servidores y terminal.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
+              <h4>PostgreSQL</h4>
+              <p>Base de datos relacional robusta y escalable.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+              <h4>MySQL</h4>
+              <p>Persistencia de datos para aplicaciones y servicios web.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+              <h4>MongoDB</h4>
+              <p>Base de datos NoSQL orientada a documentos y flexibilidad.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" />
+              <h4>AWS</h4>
+              <p>Servicios cloud para despliegue, cómputo y escalabilidad.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" />
+              <h4>Google Cloud</h4>
+              <p>Infraestructura y herramientas para datos y aplicaciones.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" />
+              <h4>Terraform</h4>
+              <p>Infraestructura como código para aprovisionamiento reproducible.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible" />
+              <h4>Ansible</h4>
+              <p>Automatización de configuración, despliegue y administración.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://www.svgrepo.com/show/331552/proxmox.svg" alt="Proxmox" />
+              <h4>Proxmox</h4>
+              <p>Virtualización, gestión de VMs y laboratorio de infraestructura.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.simpleicons.org/adobeillustrator/FF9A00" alt="Illustrator" />
+              <h4>Illustrator</h4>
+              <p>Diseño vectorial para identidad visual y piezas gráficas.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.simpleicons.org/adobexd/FF61F6" alt="Adobe XD" />
+              <h4>Adobe XD</h4>
+              <p>Prototipado UI/UX y diseño de experiencias digitales.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop" />
+              <h4>Photoshop</h4>
+              <p>Edición gráfica y preparación de recursos visuales.</p>
+            </article>
+            <article class="stack-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
+              <h4>Figma</h4>
+              <p>Wireframes, prototipos y diseño colaborativo de interfaces.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-    // Mostrar y animar entrada de la nueva vista
-    nextView.classList.add("is-active", "is-entering");
-    currentView = nextView;
-  }
+      <section class="section" id="contacto">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Redes</div>
+              <h2 class="section-title">Conecta conmigo.</h2>
+            </div>
+          </div>
+          <div class="socials">
+            <a class="social-card" href="https://www.instagram.com/samuel_arng/profilecard/?igsh=a3FvMmVnbHpvaTIx" target="_blank" rel="noreferrer">
+              <small>Instagram</small>
+              <strong>@samuel_arng</strong>
+              <p>Contenido personal y presencia digital.</p>
+            </a>
+            <a class="social-card" href="https://github.com/SamuelArangoIzad" target="_blank" rel="noreferrer">
+              <small>GitHub</small>
+              <strong>SamuelArangoIzad</strong>
+              <p>Repositorios, proyectos y código en evolución.</p>
+            </a>
+            <a class="social-card" href="https://www.linkedin.com/in/samuel-arango-diaz-a6a06a293/overlay/contact-info/" target="_blank" rel="noreferrer">
+              <small>LinkedIn</small>
+              <strong>Samuel Arango Díaz</strong>
+              <p>Perfil profesional y red de contactos.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const targetView = link.dataset.view;
-      showView(targetView);
-
-      navLinks.forEach((l) => l.classList.remove("is-active"));
-      link.classList.add("is-active");
-    });
-  });
-</script>
-
-
-
+    <footer>
+      <div class="shell footer-line">
+        <span>Samuel Arango · Ingeniería de Sistemas e informática</span>
+        <span>Portafolio personal en gris, azul rey y blanco</span>
+      </div>
+    </footer>
   </body>
 </html>
