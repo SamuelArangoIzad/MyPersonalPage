@@ -1,59 +1,29 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+/* Sistema de diseño: superficies blancas y rojo vivo como acento. */
 :root {
-  --font-main: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
-  --color-bg: #f3f4f6;
-  --color-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
-  --color-card: #ffffff;
-
-  --color-primary: #1d4ed8;
-  --color-primary-dark: #1e40af;
-  --color-primary-soft: #dbeafe;
-
-  --color-text: #111827;
-  --color-text-soft: #6b7280;
-  --color-border: #d1d5db;
-
-  --color-surface: #f8fafc;
-  --color-surface-2: #eef2f7;
-
-  --radius-lg: 28px;
-  --radius-md: 20px;
-
-  --shadow-soft: 0 10px 30px rgba(17, 24, 39, 0.08);
-  --shadow-strong: 0 18px 45px rgba(17, 24, 39, 0.14);
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #271117;
+  --muted: #6a434e;
+  --wine: #ff1f3d;
+  --wine-dark: #c1123f;
+  --wine-light: #fff3f5;
+  --blue: var(--wine);
+  --blue-dark: var(--wine-dark);
+  --border: #efd4dc;
+  --navy: #2b0b12;
+  --radius: 20px;
+  --shadow: 0 16px 50px rgba(70,18,41,.07);
 }
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  font-family: var(--font-main);
-  background: var(--color-bg-gradient);
-  color: var(--color-text);
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+*,*::before,*::after { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:82px; }
+body { margin:0; background:var(--bg); color:var(--ink); font:400 16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-decoration:none; }
+button { font:inherit; }
+img { display:block; max-width:100%; }
+button,a { -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:3px solid #ff4b63; outline-offset:4px; }
+[hidden] { display:none!important; }
+.container { width:min(1160px,calc(100% - 40px)); margin-inline:auto; }
+.skip-link { position:absolute; z-index:200; left:12px; top:-80px; padding:10px 14px; background:#fff; color:#111; }
+.skip-link:focus { top:12px; }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }

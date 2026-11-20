@@ -1,815 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Samuel Arango | Ingeniero de Sistemas</title>
-    <link rel="icon" type="image/png" href="./public/cuervo.png" />
-    <link rel="shortcut icon" href="./public/cuervo.png" />
-    <link rel="apple-touch-icon" href="./public/cuervo.png" />
-    <style>
-      :root {
-        --bg: #f8fafc;
-        --surface: #ffffff;
-        --surface-2: #eef2ff;
-        --text: #111827;
-        --text-soft: #6b7280;
-        --border: #d1d5db;
-        --primary: #1d4ed8;
-        --primary-dark: #1e3a8a;
-        --primary-soft: #dbeafe;
-        --gray-strong: #374151;
-        --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.08);
-        --shadow-strong: 0 24px 60px rgba(15, 23, 42, 0.14);
-        --radius-xl: 28px;
-        --radius-lg: 22px;
-        --radius-md: 16px;
-        --max: 1200px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        font-family: Inter, Poppins, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(circle at top right, rgba(29, 78, 216, 0.08), transparent 30%),
-          linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      img {
-        display: block;
-        max-width: 100%;
-      }
-
-      .shell {
-        width: min(calc(100% - 2rem), var(--max));
-        margin: 0 auto;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        backdrop-filter: blur(14px);
-        background: rgba(255, 255, 255, 0.88);
-        border-bottom: 1px solid rgba(209, 213, 219, 0.8);
-      }
-
-      .nav {
-        min-height: 76px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 0.9rem;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--primary-dark);
-      }
-
-      .brand-mark {
-        width: 42px;
-        height: 42px;
-        border-radius: 14px;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: #fff;
-        box-shadow: 0 12px 26px rgba(29, 78, 216, 0.24);
-        font-size: 0.92rem;
-      }
-
-      .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.7rem;
-      }
-
-      .nav-links a {
-        padding: 0.7rem 1rem;
-        border-radius: 999px;
-        color: var(--text-soft);
-        font-size: 0.92rem;
-        font-weight: 600;
-        transition: 0.25s ease;
-      }
-
-      .nav-links a:hover {
-        background: var(--surface-2);
-        color: var(--primary-dark);
-      }
-
-      .hero {
-        min-height: calc(100vh - 76px);
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 2rem;
-        align-items: center;
-        padding: 3rem 0 4rem;
-      }
-
-      .hero-copy {
-        max-width: 680px;
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.55rem 0.9rem;
-        border-radius: 999px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow-soft);
-        color: var(--primary-dark);
-        font-size: 0.84rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .eyebrow-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--primary);
-      }
-
-      h1 {
-        margin: 1.2rem 0 0.8rem;
-        font-size: clamp(3rem, 7vw, 5.4rem);
-        line-height: 0.95;
-        letter-spacing: -0.05em;
-      }
-
-      .hero h1 span {
-        color: var(--primary);
-      }
-
-      .hero-text {
-        margin: 0;
-        max-width: 640px;
-        color: var(--text-soft);
-        font-size: 1.02rem;
-        line-height: 1.85;
-      }
-
-      .cta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.9rem;
-        margin-top: 1.8rem;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        min-height: 50px;
-        padding: 0.85rem 1.3rem;
-        border-radius: 999px;
-        font-weight: 700;
-        border: 1px solid transparent;
-        transition: 0.25s ease;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: #fff;
-        box-shadow: 0 18px 32px rgba(29, 78, 216, 0.22);
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-      }
-
-      .btn-secondary {
-        background: #fff;
-        color: var(--text);
-        border-color: var(--border);
-        box-shadow: var(--shadow-soft);
-      }
-
-      .btn-secondary:hover {
-        background: var(--surface-2);
-        color: var(--primary-dark);
-      }
-
-      .hero-card {
-        position: relative;
-        background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(239,246,255,0.96));
-        border: 1px solid rgba(209, 213, 219, 0.9);
-        border-radius: var(--radius-xl);
-        padding: 1rem;
-        box-shadow: var(--shadow-strong);
-        overflow: visible;
-      }
-
-      .hero-photo {
-        width: 100%;
-        aspect-ratio: 4 / 5;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 22px;
-        border: 1px solid rgba(209, 213, 219, 0.9);
-      }
-
-      .hero-badge {
-        position: absolute;
-        left: 20px;
-        right: 20px;
-        bottom: 18px;
-        padding: 1rem 1.1rem;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.84);
-        border: 1px solid rgba(255,255,255,0.7);
-        backdrop-filter: blur(14px);
-        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
-      }
-
-      .hero-badge strong {
-        display: block;
-        color: var(--primary-dark);
-        margin-bottom: 0.2rem;
-      }
-
-      .section {
-        padding: 5rem 0;
-      }
-
-      .section-head {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 1.8rem;
-      }
-
-      .section-kicker {
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 0.16em;
-        font-size: 0.78rem;
-        font-weight: 800;
-      }
-
-      .section-title {
-        margin: 0.35rem 0 0;
-        font-size: clamp(2rem, 4vw, 3rem);
-        letter-spacing: -0.04em;
-      }
-
-      .section-text {
-        max-width: 680px;
-        color: var(--text-soft);
-        line-height: 1.8;
-      }
-
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.25rem;
-      }
-
-      .panel {
-        background: rgba(255, 255, 255, 0.88);
-        border: 1px solid rgba(209, 213, 219, 0.9);
-        border-radius: var(--radius-lg);
-        padding: 1.5rem;
-        box-shadow: var(--shadow-soft);
-      }
-
-      .panel h3 {
-        margin-top: 0;
-        margin-bottom: 0.8rem;
-        font-size: 1.05rem;
-      }
-
-      .panel p,
-      .panel li {
-        color: var(--text-soft);
-        line-height: 1.8;
-      }
-
-      .stack-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-      }
-
-      .stack-card {
-        position: relative;
-        overflow: hidden;
-        min-height: 150px;
-        border-radius: 20px;
-        padding: 1.2rem 1rem;
-        background: #fff;
-        border: 1px solid rgba(209, 213, 219, 0.85);
-        box-shadow: var(--shadow-soft);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.8rem;
-        text-align: center;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      }
-
-      .stack-card::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto auto 0;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.25s ease;
-      }
-
-      .stack-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 22px 44px rgba(15, 23, 42, 0.12);
-        border-color: rgba(29, 78, 216, 0.28);
-      }
-
-      .stack-card:hover::before {
-        transform: scaleX(1);
-      }
-
-      .stack-card img {
-        width: 54px;
-        height: 54px;
-        object-fit: contain;
-      }
-
-      .stack-card h4 {
-        margin: 0;
-        font-size: 0.98rem;
-      }
-
-      .stack-card p {
-        margin: 0;
-        color: var(--text-soft);
-        font-size: 0.84rem;
-        line-height: 1.5;
-      }
-
-      .highlight-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-      }
-
-      .highlight {
-        background: linear-gradient(180deg, #ffffff, #f8fbff);
-        border: 1px solid rgba(209, 213, 219, 0.9);
-        border-radius: 20px;
-        padding: 1.5rem;
-        box-shadow: var(--shadow-soft);
-      }
-
-      .highlight strong {
-        display: block;
-        color: var(--primary-dark);
-        font-size: 1.8rem;
-        margin-bottom: 0.35rem;
-      }
-
-      .socials {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-      }
-
-      .social-card {
-        background: rgba(255, 255, 255, 0.92);
-        border: 1px solid rgba(209, 213, 219, 0.9);
-        border-radius: 20px;
-        padding: 1.35rem;
-        box-shadow: var(--shadow-soft);
-        transition: 0.25s ease;
-      }
-
-      .social-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(29, 78, 216, 0.34);
-      }
-
-      .social-card small {
-        display: block;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--primary);
-        font-weight: 800;
-        margin-bottom: 0.6rem;
-      }
-
-      footer {
-        padding: 2rem 0 3rem;
-        color: var(--text-soft);
-      }
-
-      .footer-line {
-        border-top: 1px solid rgba(209, 213, 219, 0.9);
-        padding-top: 1.1rem;
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-
-      @media (max-width: 980px) {
-        .hero,
-        .about-grid,
-        .highlight-grid,
-        .socials {
-          grid-template-columns: 1fr;
-        }
-
-        .hero {
-          min-height: auto;
-          padding-top: 2rem;
-        }
-
-        .hero-card {
-          max-width: 460px;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .nav {
-          padding: 0.7rem 0;
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .nav-links {
-          width: 100%;
-        }
-
-        .nav-links a {
-          padding-inline: 0.8rem;
-        }
-
-        h1 {
-          font-size: clamp(2.4rem, 13vw, 3.6rem);
-        }
-
-        .section {
-          padding: 3.8rem 0;
-        }
-      }
-
-      /* ------ SCROLL REVEAL ------ */
-
-      .reveal {
-  opacity: 0;
-  transform: translateY(40px) scale(0.985);
-  filter: blur(10px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease,
-    filter 0.8s ease;
-  will-change: opacity, transform, filter;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-
-    </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="shell nav">
-        <a class="brand" href="#inicio">
-          <img src="./public/cuervo.png" alt="Logo Samuel Arango" style="width:42px;height:42px;object-fit:contain;border-radius:10px;" />
-          <span>Samuel Arango</span>
-        </a>
-        <nav class="nav-links">
-          <a href="#inicio">Inicio</a>
-          <a href="#perfil">Perfil</a>
-          <a href="#stack">Stack</a>
-          <a href="#contacto">Redes</a>
-        </nav>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff1f3d">
+  <meta name="description" content="Portafolio de Samuel Arango Díaz: ingeniería de sistemas, desarrollo de software, datos, infraestructura y seguridad.">
+  <title>Samuel Arango Díaz | Ingeniería de Sistemas y Tecnología</title>
+  <link rel="icon" href="./public/cuervo.png" type="image/png">
+  <link rel="stylesheet" href="./global.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header" id="inicio">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Samuel Arango Díaz, ir al inicio">
+        <img src="./public/cuervo.png" width="38" height="38" alt="" onerror="this.style.display='none'">
+        <span>Samuel <strong>Arango Díaz</strong><small>Ingeniería y tecnología</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="main-nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#perfil">Perfil</a>
+        <a href="#stack">Tecnologías</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Portafolio profesional · Ingeniería de Sistemas</p>
+        <h1 id="hero-title">Tecnología con <span>estructura, criterio y propósito.</span></h1>
+        <p class="hero-lead">Soy <strong>Samuel Arango Díaz</strong>, estudiante de Ingeniería de Sistemas e Informática, con interés en el desarrollo de software, la analítica de datos, las bases de datos, el machine learning, las redes y la seguridad.</p>
+        <p class="hero-detail">Me enfoco en comprender problemas, diseñar soluciones y conectar software, información e infraestructura.</p>
+        <div class="actions">
+          <a class="button primary" href="#stack">Explorar tecnologías <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="https://github.com/SamuelArangoIzad" target="_blank" rel="noopener noreferrer">Ver GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-keywords" aria-label="Áreas de interés"><span>Software</span><span>Analítica</span><span>Machine Learning</span><span>QA</span><span>Seguridad</span></div>
       </div>
-    </header>
-
-    <main>
-      <section class="shell hero" id="inicio">
-        <div class="hero-copy">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            Ingeniería de Sistemas · Software · Datos · Infraestructura
-          </div>
-          <h1>
-            Construyo experiencias <span>tecnológicas</span> con enfoque en
-            software, analítica y arquitectura.
-          </h1>
-          <p class="hero-text">
-            Soy Samuel Arango, estudiante de Ingeniería de Sistemas e informática.
-            Me interesa el desarrollo de software, la analítica de datos, las bases de datos,
-            el machine learning, las redes de datos, la seguridad y la innovación.
-            Este portafolio está diseñado para presentar mi perfil de forma profesional,
-            clara y con una identidad visual sobria en gris, azul rey y blanco.
-          </p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#stack">Ver stack tecnológico</a>
-            <a class="btn btn-secondary" href="#contacto">Ir a mis redes</a>
+      <div class="visual" aria-label="Representación de áreas de ingeniería de sistemas">
+        <div class="visual-top"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system / overview</span><span class="live-indicator">● online</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> build --profile=engineering<span class="cursor" aria-hidden="true">_</span></div>
+        <div class="architecture">
+          <div class="arch-node main-node"><small>01 / CORE</small><strong>Ingeniería de Sistemas</strong><span>Diseño y resolución de problemas</span></div>
+          <div class="node-connector" aria-hidden="true"></div>
+          <div class="arch-grid">
+            <div class="arch-node"><small>02 / DEV</small><strong>Software</strong><span>Desarrollo y arquitectura</span></div>
+            <div class="arch-node"><small>03 / DATA</small><strong>Datos + ML</strong><span>Análisis e inteligencia</span></div>
+            <div class="arch-node"><small>04 / OPS</small><strong>Infraestructura</strong><span>Cloud, redes y sistemas</span></div>
+            <div class="arch-node"><small>05 / SEC</small><strong>Seguridad</strong><span>Protección y confiabilidad</span></div>
           </div>
         </div>
-
-        <div class="hero-card">
-          <img class="hero-photo" src="./public/image-1@2x.png" alt="Foto de Samuel Arango" />
-          <div class="hero-badge">
-            <strong>Perfil profesional</strong>
-            Desarrollo de software · Datos · Infraestructura · ML
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal" id="perfil">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="section-kicker">Sobre mí</div>
-              <h2 class="section-title">Perfil orientado a soluciones, aprendizaje y construcción.</h2>
-            </div>
-          </div>
-          <p class="section-text">
-            Mi enfoque combina pensamiento ingenieril, visión de producto y gusto por la tecnología aplicada.
-            Disfruto trabajar en proyectos donde se integran backend, bases de datos, interfaces, despliegue,
-            visualización de información y automatización. Busco seguir creciendo en áreas como machine learning,
-            computación en la nube, seguridad y arquitectura de software.
-          </p>
-
-          <div class="about-grid" style="margin-top: 1.5rem;">
-            <article class="panel">
-              <h3>Lo que me define</h3>
-              <ul>
-                <li>Desarrollo de software con enfoque estructurado.</li>
-                <li>Interés por machine learning y analítica de datos.</li>
-                <li>Base en infraestructura, redes, seguridad y sistemas.</li>
-                <li>Gusto por crear soluciones útiles, escalables y limpias.</li>
-              </ul>
-            </article>
-            <article class="panel">
-              <h3>Áreas de proyección</h3>
-              <ul>
-                <li>Backend y arquitectura de servicios.</li>
-                <li>Machine learning aplicado y ciencia de datos.</li>
-                <li>Automatización, cloud e infraestructura.</li>
-                <li>Diseño técnico de productos digitales.</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal" id="stack">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="section-kicker">Stack tecnológico</div>
-              <h2 class="section-title">Lenguajes, herramientas y tecnologías que uso.</h2>
-            </div>
-          </div>
-
-          <div class="highlight-grid" style="margin-bottom: 1.5rem;">
-            <article class="highlight">
-              <strong>Software</strong>
-              <span>Desarrollo, estructura, lógica y construcción de soluciones funcionales.</span>
-            </article>
-            <article class="highlight">
-              <strong>Datos</strong>
-              <span>Modelado, analítica, manejo de información y pensamiento orientado a métricas.</span>
-            </article>
-            <article class="highlight">
-              <strong>Infraestructura</strong>
-              <span>Interés por entornos, despliegue, redes, virtualización y arquitectura técnica.</span>
-            </article>
-          </div>
-
-          <div class="stack-grid">
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" />
-              <h4>HTML</h4>
-              <p>Estructura semántica y construcción de interfaces web.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
-              <h4>JavaScript</h4>
-              <p>Lógica de interacción, componentes y dinamismo del frontend.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
-              <h4>Python</h4>
-              <p>Automatización, análisis de datos y base para ML.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" />
-              <h4>Java</h4>
-              <p>Programación orientada a objetos y fundamentos sólidos.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" />
-              <h4>C++</h4>
-              <p>Algoritmia, rendimiento y lógica de bajo nivel.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" />
-              <h4>TypeScript</h4>
-              <p>JavaScript tipado para aplicaciones más robustas.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Go" />
-              <h4>Go</h4>
-              <p>Servicios eficientes, concurrencia y backend moderno.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby" />
-              <h4>Ruby</h4>
-              <p>Desarrollo ágil con sintaxis clara y productiva.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" />
-              <h4>C#</h4>
-              <p>Aplicaciones orientadas a objetos y ecosistema .NET.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" alt="Rust" />
-              <h4>Rust</h4>
-              <p>Rendimiento y seguridad de memoria para sistemas confiables.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" />
-              <h4>Kotlin</h4>
-              <p>Desarrollo moderno para Android y backend JVM.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="Swift" />
-              <h4>Swift</h4>
-              <p>Construcción nativa de apps dentro del ecosistema Apple.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
-              <h4>Git</h4>
-              <p>Control de versiones, ramas y trabajo colaborativo.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" />
-              <h4>Linux</h4>
-              <p>Administración de sistemas, servidores y terminal.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
-              <h4>PostgreSQL</h4>
-              <p>Base de datos relacional robusta y escalable.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
-              <h4>MySQL</h4>
-              <p>Persistencia de datos para aplicaciones y servicios web.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
-              <h4>MongoDB</h4>
-              <p>Base de datos NoSQL orientada a documentos y flexibilidad.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" />
-              <h4>AWS</h4>
-              <p>Servicios cloud para despliegue, cómputo y escalabilidad.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" />
-              <h4>Google Cloud</h4>
-              <p>Infraestructura y herramientas para datos y aplicaciones.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" />
-              <h4>Terraform</h4>
-              <p>Infraestructura como código para aprovisionamiento reproducible.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible" />
-              <h4>Ansible</h4>
-              <p>Automatización de configuración, despliegue y administración.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://www.svgrepo.com/show/331552/proxmox.svg" alt="Proxmox" />
-              <h4>Proxmox</h4>
-              <p>Virtualización, gestión de VMs y laboratorio de infraestructura.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator" />
-              <h4>Illustrator</h4>
-              <p>Diseño vectorial para identidad visual y piezas gráficas.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" alt="Adobe XD" />
-              <h4>Adobe XD</h4>
-              <p>Prototipado UI/UX y diseño de experiencias digitales.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop" />
-              <h4>Photoshop</h4>
-              <p>Edición gráfica y preparación de recursos visuales.</p>
-            </article>
-            <article class="stack-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
-              <h4>Figma</h4>
-              <p>Wireframes, prototipos y diseño colaborativo de interfaces.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal" id="contacto">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="section-kicker">Redes</div>
-              <h2 class="section-title">Conecta conmigo.</h2>
-            </div>
-          </div>
-          <div class="socials">
-            <a class="social-card" href="https://www.instagram.com/samuel_arng/profilecard/?igsh=a3FvMmVnbHpvaTIx" target="_blank" rel="noreferrer">
-              <small>Instagram</small>
-              <strong>@samuel_arng</strong>
-              <p>Contenido personal y presencia digital.</p>
-            </a>
-            <a class="social-card" href="https://github.com/SamuelArangoIzad" target="_blank" rel="noreferrer">
-              <small>GitHub</small>
-              <strong>SamuelArangoIzad</strong>
-              <p>Repositorios, proyectos y código en evolución.</p>
-            </a>
-            <a class="social-card" href="https://www.linkedin.com/in/samuel-arango-diaz-a6a06a293/overlay/contact-info/" target="_blank" rel="noreferrer">
-              <small>LinkedIn</small>
-              <strong>Samuel Arango Díaz</strong>
-              <p>Perfil profesional y red de contactos.</p>
-            </a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="shell footer-line">
-        <span>Samuel Arango · Ingeniería de Sistemas e informática</span>
-        <span>Portafolio personal</span>
+        <div class="visual-bottom"><span>PORTFOLIO / SAD</span><span>2026</span></div>
       </div>
-    </footer>
+    </section>
 
-    <script>
-const reveals = document.querySelectorAll(".reveal");
+    <section class="section section-alt" id="perfil" aria-labelledby="perfil-title">
+      <div class="container">
+        <div class="section-intro"><p class="kicker">01 / PERFIL</p><h2 id="perfil-title">Un enfoque integral de la tecnología.</h2><p>Interés por todo el ciclo de una solución: desde la lógica de negocio y los datos hasta su implementación, operación y seguridad.</p></div>
+        <div class="focus-grid">
+          <article class="focus-card"><span class="focus-number">01</span><h3>Ingeniería de software</h3><p>Desarrollo de aplicaciones, pensamiento algorítmico, backend y diseño de servicios.</p></article>
+          <article class="focus-card"><span class="focus-number">02</span><h3>Analítica de datos e IA</h3><p>SQL, preparación de datos, visualización, modelos de aprendizaje automático y evaluación de resultados.</p></article>
+          <article class="focus-card"><span class="focus-number">03</span><h3>Calidad, infraestructura y seguridad</h3><p>Pruebas de software, automatización, Linux, servicios cloud, redes y principios de seguridad.</p></article>
+        </div>
+      </div>
+    </section>
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      } else {
-        entry.target.classList.remove("visible");
-      }
-    });
-  },
-  {
-    threshold: 0.18,
-    rootMargin: "0px 0px -8% 0px"
-  }
-);
+    <section class="section" id="stack" aria-labelledby="stack-title">
+      <div class="container">
+        <div class="section-intro"><p class="kicker">02 / STACK TECNOLÓGICO</p><h2 id="stack-title">Lenguajes, herramientas y tecnologías.</h2><p>Tecnologías, herramientas y disciplinas que forman parte de mis áreas de desarrollo profesional. Cada una representa un enfoque de trabajo o aprendizaje, no una certificación de dominio.</p></div>
+        <div class="filter-row" role="group" aria-label="Filtrar tecnologías">
+          <button type="button" class="filter active" data-filter="all" aria-pressed="true">Todas</button>
+          <button type="button" class="filter" data-filter="lenguajes" aria-pressed="false">Lenguajes</button>
+          <button type="button" class="filter" data-filter="datos" aria-pressed="false">Bases de datos</button>
+          <button type="button" class="filter" data-filter="analitica" aria-pressed="false">Analítica</button>
+          <button type="button" class="filter" data-filter="ia" aria-pressed="false">IA / ML</button>
+          <button type="button" class="filter" data-filter="qa" aria-pressed="false">QA / Testing</button>
+          <button type="button" class="filter" data-filter="infraestructura" aria-pressed="false">Cloud / DevOps</button>
+          <button type="button" class="filter" data-filter="seguridad" aria-pressed="false">Redes y seguridad</button>
+          <button type="button" class="filter" data-filter="diseno" aria-pressed="false">Diseño</button>
+        </div>
+        <div class="stack-grid" id="stack-grid">
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" loading="lazy" width="44" height="44"><h3>HTML</h3><p>Estructura semántica y construcción de interfaces web.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" loading="lazy" width="44" height="44"><h3>JavaScript</h3><p>Lógica de interacción, componentes y dinamismo del frontend.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Python</h3><p>Automatización, análisis de datos y base para ML.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Java</h3><p>Programación orientada a objetos y fundamentos sólidos.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="" loading="lazy" width="44" height="44"><h3>C++</h3><p>Algoritmia, rendimiento y lógica de bajo nivel.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="" loading="lazy" width="44" height="44"><h3>TypeScript</h3><p>JavaScript tipado para aplicaciones más robustas.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="" loading="lazy" width="44" height="44"><h3>Go</h3><p>Servicios eficientes, concurrencia y backend moderno.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Ruby</h3><p>Desarrollo ágil con sintaxis clara y productiva.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="" loading="lazy" width="44" height="44"><h3>C#</h3><p>Aplicaciones orientadas a objetos y ecosistema .NET.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Rust</h3><p>Rendimiento y seguridad de memoria para sistemas confiables.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Kotlin</h3><p>Desarrollo moderno para Android y backend JVM.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Swift</h3><p>Construcción nativa de apps dentro del ecosistema Apple.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Git</h3><p>Control de versiones, ramas y trabajo colaborativo.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Linux</h3><p>Administración de sistemas, servidores y terminal.</p></article>
+          <article class="stack-card" data-category="datos"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="" loading="lazy" width="44" height="44"><h3>PostgreSQL</h3><p>Base de datos relacional robusta y escalable.</p></article>
+          <article class="stack-card" data-category="datos"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="" loading="lazy" width="44" height="44"><h3>MySQL</h3><p>Persistencia de datos para aplicaciones y servicios web.</p></article>
+          <article class="stack-card" data-category="datos"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="" loading="lazy" width="44" height="44"><h3>MongoDB</h3><p>Base de datos NoSQL orientada a documentos y flexibilidad.</p></article>
+          <article class="stack-card" data-category="infraestructura"><span class="tech-glyph glyph-aws" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M6 16.8c4.2 2.5 8.9 2.8 13.2.5"></path><path d="M8 9.7c.9-1.9 2.7-3.2 5-3.2 3 0 5.5 2.4 5.5 5.4 0 .4 0 .8-.1 1.1 1 .3 1.8 1.3 1.8 2.5 0 1.5-1.2 2.7-2.7 2.7H8.1A3.6 3.6 0 0 1 4.5 15c0-1.8 1.3-3.3 3-3.5.1-.7.3-1.3.5-1.8Z"></path><path d="m14.7 18.7 2.2-.2-1.2 1.8"></path></svg></span><h3>AWS</h3><p>Servicios cloud para despliegue, cómputo y escalabilidad.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Google Cloud</h3><p>Infraestructura y herramientas para datos y aplicaciones.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Terraform</h3><p>Infraestructura como código para aprovisionamiento reproducible.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Ansible</h3><p>Automatización de configuración, despliegue y administración.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://www.svgrepo.com/show/331552/proxmox.svg" alt="" loading="lazy" width="44" height="44"><h3>Proxmox</h3><p>Virtualización, gestión de VMs y laboratorio de infraestructura.</p></article>
+          <article class="stack-card" data-category="diseno"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="" loading="lazy" width="44" height="44"><h3>Illustrator</h3><p>Diseño vectorial para identidad visual y piezas gráficas.</p></article>
+          <article class="stack-card" data-category="diseno"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" alt="" loading="lazy" width="44" height="44"><h3>Adobe XD</h3><p>Prototipado UI/UX y diseño de experiencias digitales.</p></article>
+          <article class="stack-card" data-category="diseno"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="" loading="lazy" width="44" height="44"><h3>Photoshop</h3><p>Edición gráfica y preparación de recursos visuales.</p></article>
+          <article class="stack-card" data-category="diseno"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Figma</h3><p>Wireframes, prototipos y diseño colaborativo de interfaces.</p></article>
+          <article class="stack-card" data-category="lenguajes"><img src="https://cdn.simpleicons.org/sap/0FAAFF" alt="" loading="lazy" width="44" height="44"><h3>ABAP</h3><p>Programación empresarial y lógica de negocio en entornos SAP.</p></article>
+          <article class="stack-card" data-category="lenguajes"><span class="tech-glyph glyph-database" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><ellipse class="fill-top" cx="12" cy="5.5" rx="6.5" ry="2.8"></ellipse><path class="fill-bottom" d="M5.5 5.5v6.8c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8V5.5"></path><path d="M5.5 9.3c0 1.6 2.9 2.9 6.5 2.9s6.5-1.3 6.5-2.9"></path><path d="M5.5 13.2c0 1.6 2.9 2.9 6.5 2.9s6.5-1.3 6.5-2.9"></path></svg></span><h3>SQL</h3><p>Consultas, transformación de datos y operaciones relacionales.</p></article>
+          <article class="stack-card" data-category="analitica"><span class="tech-glyph glyph-analytics" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M5 18.5h14"></path><path d="M7.5 16V11"></path><path d="M12 16V7.5"></path><path d="M16.5 16v-4"></path><circle class="fill-node" cx="7.5" cy="10.2" r="1.3"></circle><circle class="fill-node" cx="12" cy="6.6" r="1.3"></circle><circle class="fill-node" cx="16.5" cy="11.1" r="1.3"></circle></svg></span><h3>Analítica de datos</h3><p>Exploración, limpieza, indicadores y comunicación de resultados.</p></article>
+          <article class="stack-card" data-category="analitica"><img src="https://cdn.simpleicons.org/pandas/150458" alt="" loading="lazy" width="44" height="44"><h3>Pandas</h3><p>Manipulación de datasets tabulares con Python.</p></article>
+          <article class="stack-card" data-category="analitica"><img src="https://cdn.simpleicons.org/numpy/013243" alt="" loading="lazy" width="44" height="44"><h3>NumPy</h3><p>Operaciones numéricas y procesamiento de arreglos.</p></article>
+          <article class="stack-card" data-category="analitica"><span class="tech-glyph glyph-powerbi" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><rect class="fill-bar" x="4" y="11" width="3.2" height="7" rx="1"></rect><rect class="fill-bar" x="9.2" y="8" width="3.2" height="10" rx="1"></rect><rect class="fill-bar" x="14.4" y="5" width="3.2" height="13" rx="1"></rect><path d="M4 19h15"></path></svg></span><h3>Power BI</h3><p>Modelado semántico, visualización de KPIs e informes.</p></article>
+          <article class="stack-card" data-category="analitica"><img src="https://cdn.simpleicons.org/jupyter/F37626" alt="" loading="lazy" width="44" height="44"><h3>Jupyter</h3><p>Notebooks para análisis exploratorio y documentación.</p></article>
+          <article class="stack-card" data-category="ia"><span class="tech-glyph glyph-ml" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><circle class="fill-node" cx="7" cy="7" r="2"></circle><circle class="fill-node" cx="17" cy="7" r="2"></circle><circle class="fill-node" cx="12" cy="12" r="2"></circle><circle class="fill-node" cx="7" cy="17" r="2"></circle><circle class="fill-node" cx="17" cy="17" r="2"></circle><path d="M8.7 8.2l2 2"></path><path d="M15.3 8.2l-2 2"></path><path d="M10.7 13.5l-2 2"></path><path d="M13.3 13.5l2 2"></path><path d="M9.2 7h5.6"></path></svg></span><h3>Machine Learning</h3><p>Preparación, entrenamiento, validación y evaluación de modelos.</p></article>
+          <article class="stack-card" data-category="ia"><img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="" loading="lazy" width="44" height="44"><h3>scikit-learn</h3><p>Modelos clásicos de aprendizaje supervisado y no supervisado.</p></article>
+          <article class="stack-card" data-category="ia"><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="" loading="lazy" width="44" height="44"><h3>TensorFlow</h3><p>Herramientas para experimentación con modelos de aprendizaje profundo.</p></article>
+          <article class="stack-card" data-category="ia"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="" loading="lazy" width="44" height="44"><h3>PyTorch</h3><p>Prototipado de redes neuronales y flujos de entrenamiento.</p></article>
+          <article class="stack-card" data-category="qa"><span class="tech-glyph glyph-qa" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M4.8 12.5l4.2 4.1L19.2 6.8"></path><path d="M12 21c-4.5-1.7-7-5-7-8.8V5.8L12 3l7 2.8v6.4c0 3.8-2.5 7.1-7 8.8Z"></path></svg></span><h3>QA / Testing</h3><p>Diseño de casos, validación funcional y prevención de regresiones.</p></article>
+          <article class="stack-card" data-category="qa"><img src="https://cdn.simpleicons.org/pytest/0A9EDC" alt="" loading="lazy" width="44" height="44"><h3>Pytest</h3><p>Pruebas automatizadas y fixtures para proyectos Python.</p></article>
+          <article class="stack-card" data-category="qa"><img src="https://cdn.simpleicons.org/selenium/43B02A" alt="" loading="lazy" width="44" height="44"><h3>Selenium</h3><p>Automatización de pruebas de interfaz web.</p></article>
+          <article class="stack-card" data-category="qa"><span class="tech-glyph glyph-playwright" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path class="fill-mark" d="M9.5 4c-2.9 0-5 1.8-5 4.5 0 2.8 2.2 4.5 4.6 4.5h1.8V4H9.5Z"></path><path class="fill-mark-2" d="M14.5 4H13v9h1.8c2.5 0 4.7-1.7 4.7-4.5C19.5 5.8 17.4 4 14.5 4Z"></path><path d="M10.2 14.8c1 2 2.4 3.2 4.6 3.2 1.8 0 3.1-.9 4.1-2.5"></path><path d="M5.2 15.5c1 1.7 2.3 2.5 4 2.5"></path></svg></span><h3>Playwright</h3><p>Pruebas E2E para aplicaciones web y navegadores.</p></article>
+          <article class="stack-card" data-category="qa"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="" loading="lazy" width="44" height="44"><h3>Postman</h3><p>Validación de APIs, colecciones y pruebas de endpoints.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" loading="lazy" width="44" height="44"><h3>Docker</h3><p>Contenedores y entornos reproducibles para aplicaciones.</p></article>
+          <article class="stack-card" data-category="infraestructura"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="" loading="lazy" width="44" height="44"><h3>Kubernetes</h3><p>Orquestación y despliegue de servicios en contenedores.</p></article>
+          <article class="stack-card" data-category="infraestructura"><span class="tech-glyph glyph-cicd" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><rect x="3.5" y="6" width="5" height="5" rx="1.2"></rect><rect x="15.5" y="6" width="5" height="5" rx="1.2"></rect><rect x="9.5" y="13" width="5" height="5" rx="1.2"></rect><path d="M8.5 8.5h7"></path><path d="M12 11v2"></path></svg></span><h3>CI/CD</h3><p>Integración, pruebas y entrega continua.</p></article>
+          <article class="stack-card" data-category="seguridad"><span class="tech-glyph glyph-security" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M12 21c-4.5-1.7-7-5-7-8.8V5.8L12 3l7 2.8v6.4c0 3.8-2.5 7.1-7 8.8Z"></path><path d="M9.5 12.3l1.7 1.7 3.5-3.8"></path></svg></span><h3>Ciberseguridad</h3><p>Controles, gestión de vulnerabilidades y análisis de riesgos.</p></article>
+          <article class="stack-card" data-category="seguridad"><span class="tech-glyph glyph-network" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><circle class="fill-node" cx="12" cy="5.5" r="2"></circle><circle class="fill-node" cx="6.5" cy="17" r="2"></circle><circle class="fill-node" cx="17.5" cy="17" r="2"></circle><path d="M12 7.5v3.2"></path><path d="M8 15.8l3-2.6"></path><path d="M16 15.8l-3-2.6"></path><path d="M6.5 15v-2h11v2"></path></svg></span><h3>Redes de datos</h3><p>Protocolos, direccionamiento, conectividad y diagnóstico.</p></article>
+          <article class="stack-card" data-category="seguridad"><span class="tech-glyph glyph-wireshark" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path class="fill-wave" d="M4 14c2.5-.3 4.5-2 6-4.5 1.1 2 2.8 3.2 5 3.5 1.1.1 2.3-.1 5-1v6.2H4V14Z"></path><path d="M4 14c2.5-.3 4.5-2 6-4.5 1.1 2 2.8 3.2 5 3.5 1.1.1 2.3-.1 5-1"></path><path d="M8 8.2c.6-1.1 1.4-1.9 2.4-2.7"></path></svg></span><h3>Wireshark</h3><p>Inspección de tráfico y análisis de protocolos de red.</p></article>
+          <article class="stack-card" data-category="seguridad"><span class="tech-glyph glyph-lock" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><rect x="5.5" y="10.5" width="13" height="9" rx="2"></rect><path d="M8.5 10.5V8.4a3.5 3.5 0 0 1 7 0v2.1"></path><path d="M12 14v2.4"></path></svg></span><h3>Criptografía</h3><p>Principios de cifrado, integridad y gestión de claves.</p></article>
+        </div>
+      </div>
+    </section>
 
-reveals.forEach((el) => observer.observe(el));
-</script>
+    <section class="section section-alt" id="contacto" aria-labelledby="contacto-title">
+      <div class="container">
+        <div class="section-intro"><p class="kicker">03 / CONTACTO</p><h2 id="contacto-title">Conversemos sobre tecnología.</h2><p>Perfiles públicos para conocer mi trayectoria, revisar repositorios y establecer contacto profesional.</p></div>
+        <div class="contact-grid">
+          <a class="contact-card" href="https://github.com/SamuelArangoIzad" target="_blank" rel="noopener noreferrer"><span>REPOSITORIOS</span><strong>GitHub</strong><small>github.com/SamuelArangoIzad</small><b aria-hidden="true">↗</b></a>
+          <a class="contact-card" href="https://www.linkedin.com/in/samuel-arango-diaz-a6a06a293/" target="_blank" rel="noopener noreferrer"><span>PERFIL PROFESIONAL</span><strong>LinkedIn</strong><small>Samuel Arango Díaz</small><b aria-hidden="true">↗</b></a>
+          <a class="contact-card" href="https://www.instagram.com/samuel_arangod/" target="_blank" rel="noopener noreferrer"><span>RED SOCIAL</span><strong>Instagram</strong><small>@samuel_arng</small><b aria-hidden="true">↗</b></a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-
-    
-
-
-  </body>
+  <footer class="site-footer"><div class="container footer-inner"><span>© <span id="year">2026</span> Samuel Arango Díaz</span><span>Ingeniería de Sistemas e Informática</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+  <script>
+    (() => {
+      const menuButton = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.nav-links');
+      menuButton.addEventListener('click', () => {
+        const open = menuButton.getAttribute('aria-expanded') !== 'true';
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        nav.classList.toggle('open', open);
+      });
+      nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Abrir menú');
+      }));
+      document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        document.querySelectorAll('.filter').forEach(item => {
+          const active = item === button;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        document.querySelectorAll('.stack-card').forEach(card => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
+      }));
+      // Si falla un CDN, sustituir la imagen por un icono genérico visual.
+      document.querySelectorAll('.stack-card img').forEach(img => {
+        const fallback = () => {
+          if (!img.isConnected) return;
+          const mark = document.createElement('span');
+          mark.className = 'tech-glyph glyph-generic';
+          mark.setAttribute('aria-hidden', 'true');
+          img.replaceWith(mark);
+        };
+        img.addEventListener('error', fallback, { once: true });
+        if (img.complete && img.naturalWidth === 0) fallback();
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
 </html>
